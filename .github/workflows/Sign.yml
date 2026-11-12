@@ -24,7 +24,7 @@ jobs:
         run: |
           set -euo pipefail
 
-          for name in P12_BASE64 P12_PASSWORD MOBILEPROVISION_BASE64 BUNDLE_ID; do
+          for name in P12_BASE64 P12_PASSWORD PROFILE_BASE64 BUNDLE_ID; do
             if [ -z "${!name:-}" ]; then
               echo "::error::Missing GitHub secret: $name"
               exit 1
