@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IPA Signer</title>
+<style>
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #10121b;
+  color: white;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+main {
+  width: 100%;
+  max-width: 480px;
+  background: #1b1e2b;
+  border: 1px solid #34394d;
+  border-radius: 22px;
+  padding: 28px;
+}
+h1 { margin: 0 0 8px; font-size: 30px; }
+p { color: #aeb5ca; line-height: 1.5; }
+.upload {
+  display: block;
+  margin: 24px 0;
+  padding: 30px 16px;
+  border: 2px dashed #6574ff;
+  border-radius: 16px;
+  text-align: center;
+  cursor: pointer;
+}
+input[type=file] { display: none; }
+button {
+  width: 100%;
+  border: 0;
+  border-radius: 12px;
+  padding: 15px;
+  background: #6574ff;
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+}
+button:disabled { opacity: .5; }
+#status { margin-top: 18px; font-size: 14px; }
+.small { font-size: 12px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>🍎 IPA Signer</h1>
+  <p>Prepare an iOS app for installation using your authorized Ad Hoc signing setup.</p>
+
+  <label class="upload" for="ipa">
+    <div style="font-size:38px">📦</div>
+    <strong>Choose an IPA file</strong>
+    <p id="filename">Tap here to select your IPA</p>
+  </label>
+  <input id="ipa" type="file" accept=".ipa">
+
+  <button id="button" disabled>Prepare signing</button>
+  <div id="status">Select an IPA to get started.</div>
+  <p class="small">Signing workflow is still being connected. This page does not upload or sign files yet.</p>
+</main>
+<script>
+const input = document.getElementById("ipa");
+const button = document.getElementById("button");
+const filename = document.getElementById("filename");
+const status = document.getElementById("status");
+
+input.addEventListener("change", () => {
+  const file = input.files[0];
+  button.disabled = !file;
+  filename.textContent = file ? file.name : "Tap here to select your IPA";
+  status.textContent = file ? "IPA selected. Signing backend is not connected yet." : "Select an IPA to get started.";
+});
+
+button.addEventListener("click", () => {
+  status.textContent = "The GitHub Actions signing backend still needs to be connected.";
+});
+</script>
+</body>
+</html>
